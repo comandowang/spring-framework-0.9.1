@@ -9,21 +9,20 @@ import com.comando.beans.ISpecies;
 import com.comando.beans.Owner;
 import com.comando.editor.OwnerEditor;
 import com.interface21.beans.factory.xml.XmlBeanFactory;
+import junit.framework.TestCase;
 
 import java.beans.PropertyEditorManager;
 import java.util.List;
 import java.util.ListIterator;
 
 
-public class TestBeanFactory {
-    public static void main(String[] args) {
-        TestBeanFactory tb = new TestBeanFactory();
-        tb.useFactory("test/pets.xml");
-    }
-    public void useFactory(String file) {
+public class TestBeanFactory extends TestCase {
+
+    public void testUseFactory() {
+        String file = "test/pets.xml";
+        XmlBeanFactory fac = new XmlBeanFactory(file, null);
         PropertyEditorManager.registerEditor(List.class, OwnerEditor.class);
 
-        XmlBeanFactory fac = new XmlBeanFactory(file, null);
         // Find bean isabelle
         Owner isabelle = (Owner)fac.getBean("isabelle");
         System.out.println("Found bean: " + isabelle.getName() + " with pets: ");

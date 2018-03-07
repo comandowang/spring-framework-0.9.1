@@ -1,10 +1,12 @@
 package com.comando.test;
 
 import com.comando.beans.*;
+import com.comando.editor.OwnerEditor;
 import com.interface21.beans.BeanWrapper;
 import com.interface21.beans.BeanWrapperImpl;
 import junit.framework.TestCase;
 
+import java.beans.PropertyEditorManager;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,25 @@ public class TestBeans extends TestCase {
         ListIterator iter = pets.listIterator();
         while (iter.hasNext()) {
             IPet pet = (IPet)iter.next();
+            ISpecies sp = pet.getSpecies();
+            System.out.println(pet.getName() + " of species " + sp.getName());
+        }
+    }
+
+    public void testEditor() {
+        PropertyEditorManager.registerEditor(List.class, OwnerEditor.class);
+        Owner isabelle = new Owner();
+        BeanWrapper bw = new BeanWrapperImpl(isabelle);
+        try {
+            bw.setPropertyValue("name", "Isabelle");
+            bw.setPropertyValue("pets", "Bodo/4/Cat,Pixel/11/Dog,Raphael/6/Cat");
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Property editor : " + isabelle.getName() + "'s pets are: ");
+        ListIterator iter = isabelle.getPets().listIterator();
+        while (iter.hasNext()) {
+            IPet pet = (IPet) iter.next();
             ISpecies sp = pet.getSpecies();
             System.out.println(pet.getName() + " of species " + sp.getName());
         }

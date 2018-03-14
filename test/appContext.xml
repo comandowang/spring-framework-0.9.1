@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="cat" singleton="true" class="com.comando.beans.Species">
+        <property name="name">
+            <value>Cat</value>
+        </property>
+    </bean>
+    <bean id="dog" singleton="true" class="com.comando.beans.Species">
+        <property name="name">
+            <value>Dog</value>
+        </property>
+    </bean>
+    <bean id="isabelle" singleton="true" class="com.comando.beans.Owner">
+        <property name="name">
+            <value>Isabelle</value>
+        </property>
+        <property name="pets">
+            <value>Bodo/4/Cat,Pixel/11/Dog,Raphael/6/Cat</value>
+        </property>
+    </bean>
+</beans>

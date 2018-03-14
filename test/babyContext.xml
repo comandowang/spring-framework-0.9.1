@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="messageSource" name="messageSource"
+          class="com.interface21.context.support.ResourceBundleMessageSource">
+        <property name="basename">
+            <value>messages</value>
+        </property>
+    </bean>
+    <bean id="bodo" singleton="true" class="com.comando.beans.Pet">
+        <property name="name">
+            <value>Bodo</value>
+        </property>
+        <property name="age">
+            <value>4</value>
+        </property>
+        <property name="species">
+            <ref external="cat" />
+        </property>
+    </bean>
+    <bean id="pixel" singleton="true" class="com.comando.beans.Pet">
+        <property name="name">
+            <value>Pixel</value>
+        </property>
+        <property name="age">
+            <value>11</value>
+        </property>
+        <property name="species">
+            <ref external="dog" />
+        </property>
+    </bean>
+    <bean id="raphael" singleton="true" class="com.comando.beans.Pet">
+        <property name="name">
+            <value>Raphael</value>
+        </property>
+        <property name="age">
+            <value>6</value>
+        </property>
+        <property name="species">
+            <ref bean="cat"/>
+        </property>
+    </bean>
+</beans>

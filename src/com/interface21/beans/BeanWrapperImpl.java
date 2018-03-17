@@ -63,6 +63,7 @@ import com.interface21.beans.propertyeditors.StringArrayPropertyEditor;
 public class BeanWrapperImpl implements BeanWrapper {
 
 	/** Should JavaBeans event propagation be enabled by default? */
+	// 是否应该要让javabean的事件冒泡默认生效？
 	public static final boolean DEFAULT_EVENT_PROPAGATION_ENABLED = false;
 
 	/**
@@ -76,6 +77,7 @@ public class BeanWrapperImpl implements BeanWrapper {
 		// install default property editors
 		try {
 			// this one can't apply the <ClassName>Editor naming pattern
+			// StringArrayPropertyEditor 需要单独注册，因为这个类不符合自动注册的命名规范
 			PropertyEditorManager.registerEditor(String[].class, StringArrayPropertyEditor.class);
 			// register all editors in our standard package
 			PropertyEditorManager.setEditorSearchPath(new String[] {
@@ -435,6 +437,7 @@ public class BeanWrapperImpl implements BeanWrapper {
 	 */
 	public void setPropertyValue(PropertyValue pv) throws PropertyVetoException, BeansException {
 
+		// 如果是嵌套属性(名字里有.)，则
 		if (isNestedProperty(pv.getName())) {
 			try {
 				BeanWrapper nestedBw = getBeanWrapperForNestedProperty(pv.getName());
@@ -451,6 +454,7 @@ public class BeanWrapperImpl implements BeanWrapper {
 			}
 		}
 
+		// 如果没有找到属性的set方法，则抛出 NotWritablePropertyException 异常
 		if (!isWritableProperty(pv.getName())) {
 			throw new NotWritablePropertyException(pv.getName(), getWrappedClass());
 		}

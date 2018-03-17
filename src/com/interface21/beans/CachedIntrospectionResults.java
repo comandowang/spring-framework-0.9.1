@@ -80,11 +80,13 @@ final class CachedIntrospectionResults {
 	private CachedIntrospectionResults(Class clazz) throws BeansException {
 		try {
 			logger.debug("Getting BeanInfo for class '" + clazz.getName() + "'");
+			// 在bean上进行内省
 			beanInfo = Introspector.getBeanInfo(clazz);
 
 			logger.debug("Caching PropertyDescriptors for class '" + clazz.getName() + "'");
 			propertyDescriptorMap = new HashMap();
 			// This call is slow so we do it once
+			// 获得属性的描述
 			PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();
 			for (int i = 0; i < pds.length; i++) {
 				logger.debug("Found property [" + pds[i].getName() + "] of type [" + pds[i].getPropertyType() + "]; editor=[" + pds[i].getPropertyEditorClass() + "]");
@@ -94,6 +96,7 @@ final class CachedIntrospectionResults {
 			logger.debug("Caching MethodDescriptors for class '" + clazz.getName() + "'");
 			methodDescriptorMap = new HashMap();
 			// This call is slow so we do it once
+			// 获得方法的描述
 			MethodDescriptor[] mds = beanInfo.getMethodDescriptors();
 			for (int i = 0; i < mds.length; i++) {
 				logger.debug("Found method [" + mds[i].getName() + "] of type [" + mds[i].getMethod().getReturnType() + "]");
